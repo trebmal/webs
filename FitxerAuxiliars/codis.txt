@@ -1,0 +1,9 @@
+
+Crear taula (El nom dels caps no pot tenir numeros)
+
+create table personal (
+	 nom varchar(15),
+	 cognoms varchar(15),
+	 usuari varchar(15),
+	 pass varchar(15)
+);
