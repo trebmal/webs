@@ -7,3 +7,20 @@ create table personal (
 	 usuari varchar(15),
 	 pass varchar(15)
 );
+
+Introduir dades a la taula
+INSERT INTO `personal`(`nom`, `cognoms`, `usuari`, `pass`)
+	 VALUES ('Lambert','Franco Ruiz','lambert','aligator');
+
+Conexio base dades
+
+
+$bd_host = "localhost"; 
+$bd_usuari = "root"; 
+$bd_password = ""; 
+$bd_base = "nomdelabase"; 
+
+
+//conexio al servidor de bases de dades
+$conexio = mysql_connect($bd_host, $bd_usuari, $bd_password); 
+mysql_select_db($bd_base, $conexio); 
