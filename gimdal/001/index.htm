@@ -31,12 +31,12 @@
 
     <div class="container">
 
-      <form class="form-signin">
+      <form class="form-signin" action="php/proceslogin.php" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="text" id="inputUsuari" class="form-control" placeholder="Nom Usuari" required autofocus>
+        <input type="text" id="inputUsuari" class="form-control" placeholder="Nom Usuari" name="usuari" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="pass" required>
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> Remember me
