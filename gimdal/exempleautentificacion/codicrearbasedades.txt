@@ -1,0 +1,11 @@
+	
+CREATE TABLE `usuarios` (
+  `id` varchar(15) NOT NULL,
+  `nombre` varchar(20),
+  `apellidos` varchar(30),
+  `email` varchar(30) NOT NULL,
+  `edad` tinyint(3) NOT NULL,
+  `telefono` mediumint(9),
+  `password` varchar(32) NOT NULL,
+  PRIMARY KEY `id` (`id`)
+);
