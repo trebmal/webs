@@ -21,19 +21,17 @@ class GestorUsuarios {
      * @param type $usuario Usuario que se quiere validar.
      * @return boolean 
      */
-    public function validarUsuario($usuario){
+    public function validarUsuario($usuari){
         $validador = new validadorFormularios();
 
         return (
-            $validador->validarNombreUsuario($usuario->getId()) &
-            $validador->validarNombre($usuario->getNombre()) &
-            $validador->validarApellidos($usuario->getApellidos()) &
-            $validador->validarEmail($usuario->getEmail()) &
-            $validador->validarEdad($usuario->getEdad()) &
-            $validador->validarTelefono($usuario->getTelefono()) &
-            $validador->validarPassword($usuario->getPassword()) &
-            $validador->validarPasswordIguales($usuario->getPassword(), $usuario->getPassword2()) &
-            !$this->existeUsuario($usuario->getId())    
+            $validador->validarUsuari($usuari->getUsuari()) &
+            $validador->validarNom($usuari->getNom()) &
+            $validador->validarCognoms($usuari->getCognoms()) &
+            $validador->validarPermisos($usuari->getPermisos()) &
+            $validador->validarPassword($usuari->getPassword()) &
+            $validador->validarPasswordIguales($usuari->getPassword(), $usuari->getPassword2()) &
+            !$this->existeUsuario($usuari->getUsuari())    
         );
     }
     
@@ -45,15 +43,13 @@ class GestorUsuarios {
      */
     public function insertarUsuario($usuario){
         // mysqli_real_escape_string -> Escapa caracteres especiales en la cadena dada.
-        $consulta = sprintf("INSERT INTO usuarios (id, nombre, apellidos, email, edad, telefono, password) VALUES ('%s','%s','%s','%s','%d','%d','%s')",        
-            $this->mysqli->real_escape_string($usuario->getId()),
-            $this->mysqli->real_escape_string($usuario->getNombre()),
-            $this->mysqli->real_escape_string($usuario->getApellidos()),
-            $this->mysqli->real_escape_string($usuario->getEmail()),
-            $this->mysqli->real_escape_string($usuario->getEdad()),
-            $this->mysqli->real_escape_string($usuario->getTelefono()),
+        $consulta = sprintf("INSERT INTO usuarios (id, nom, cognoms, usuari, permisos, password) VALUES ('%s','%s','%s','%s','%s','%s')",        
+            $this->mysqli->real_escape_string($usuari->getUsuari()),
+            $this->mysqli->real_escape_string($usuari->getNom()),
+            $this->mysqli->real_escape_string($usuari->getCognoms()),
+            $this->mysqli->real_escape_string($usuari->getPermisos()),
             // Encripta la password usando primero sha1 y al resultado concatenado con el usuario le aplica md5. 
-            $this->mysqli->real_escape_string(md5(sha1($usuario->getPassword()).$usuario->getId()))
+            $this->mysqli->real_escape_string(md5(sha1($usuari->getPassword()).$usuari->getId()))
         );
         
         // Se ejecuta la consulta.
@@ -77,7 +73,7 @@ class GestorUsuarios {
      * @return boolean 
      */
     public function existeUsuario($id){
-        $consulta = sprintf("SELECT id FROM usuarios WHERE id='%s'",
+        $consulta = sprintf("SELECT id FROM usuaris WHERE id='%s'",
             $this->mysqli->real_escape_string($id)
         );
         $result = $this->mysqli->query($consulta);
@@ -86,7 +82,7 @@ class GestorUsuarios {
             // Si el usuario existe, forzamos la validacion del nombre de usuario para que falle, 
             // y se indique de igual forma que si asi hubiese sido.
             $validador = new validadorFormularios();
-            $validador->validarNombreUsuario('-');
+            $validador->validarNomUsuari('-');
             $result->free();
             return true;
         }
@@ -104,7 +100,7 @@ class GestorUsuarios {
      * @return boolean 
      */
     public function comprobarUsuario($id,$pass){
-        $consulta = sprintf("SELECT id, password FROM usuarios WHERE id='%s' AND password='%s'",
+        $consulta = sprintf("SELECT id, password FROM usuaris WHERE id='%s' AND password='%s'",
             $this->mysqli->real_escape_string($id),
             $this->mysqli->real_escape_string(md5(sha1($pass).$id))
         );

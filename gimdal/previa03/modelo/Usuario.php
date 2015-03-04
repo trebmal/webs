@@ -7,33 +7,27 @@
  */
 class Usuario {
     
-    private $id;
+    private $id_usuaris;
     private $nombre;
     private $apellidos;
     private $email;
-    private $edad;
-    private $telefono;
+    private $permisos;
+   // private $telefono;
     private $password;
     private $password2='';
       
      
-    public function __construct($usuario,$nombre,$apellidos,$email,$edad,$telefono,$password='',$password2='') {
-        $this->id=$usuario;
+   // public function __construct($usuario,$nombre,$apellidos,$email,$edad,$telefono,$password='',$password2='') {
+    public function __construct($usuario,$nombre,$apellidos,$password='',$password2='') {
+        $this->id_usuaris=$usuario;
         $this->nombre=$nombre;
         $this->apellidos=$apellidos;
-        $this->email=$email;
-        $this->edad=$edad;
-        $this->telefono=$telefono;
         $this->password=$password;   
         $this->password2=$password2;
     }
     
     public function getId(){
-        return $this->id;
-    }
-    
-    public function getEmail(){
-        return $this->email;
+        return $this->id_usuaris;
     }
          
     public function getNombre(){
@@ -43,15 +37,7 @@ class Usuario {
     public function getApellidos(){
         return $this->apellidos;
     }
-    
-    public function getEdad(){
-        return $this->edad;
-    }
-    
-    public function getTelefono(){
-        return $this->telefono;
-    }
-    
+       
     public function getPassword(){
         return $this->password;
     }
