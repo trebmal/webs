@@ -1,0 +1,37 @@
+<html>
+<head>
+   <title>Ajax Simple</title>
+
+
+</head>
+
+<body>
+<a href="index.html" >Sortir</a>
+<a href="#" id="enlaceajax">Haz clic!</a>
+<br>
+<div id="destino"></div>
+<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+
+<script>
+$(document).ready(function(){
+   $("#enlaceajax").click(function(evento){
+      evento.preventDefault();
+      $("#destino").load("persones.html");
+      $("#destino").empty()
+   });
+})
+</script>
+
+
+
+<script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/dataTables.editor.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/table.persones.js"></script>
+
+
+
+
+
+</body>
+</html>

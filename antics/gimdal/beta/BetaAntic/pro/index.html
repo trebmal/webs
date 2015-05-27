@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=us-ascii">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<title>DataTables example - Basic initialisation</title>
+	<link rel="shortcut icon" type="image/png" href="/media/images/favicon.png">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
+	<link rel="stylesheet" type="text/css" href="/media/css/site.css?_=59650f6d8f8c507ef629e517eea22ecd">
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.6/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">
+	<link rel="stylesheet" type="text/css" href="../../media/css/dataTables.editor.min.css">
+	<style type="text/css" class="init">
+
+	</style>
+	<script type="text/javascript" src="/media/js/site.js?_=5379509cbc3ef05d3d4a2978c1c78073"></script>
+	<script type="text/javascript" src="/media/js/dynamic.php?comments-page=examples%2Fsimple%2Fsimple.html" async=""></script>
+	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../../media/js/dataTables.editor.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../resources/demo.js"></script>
+	<script type="text/javascript" language="javascript" src="../resources/editor-demo.js"></script>
+	<script type="text/javascript" class="init">
+
+
+
+var editor; // use a global for the submit and return data rendering in the examples
+
+$(document).ready(function() {
+	editor = new $.fn.dataTable.Editor( {
+		ajax: "../php/staff.php",
+		table: "#example",
+		fields: [ {
+				label: "First name:",
+				name: "first_name"
+			}, {
+				label: "Last name:",
+				name: "last_name"
+			}, {
+				label: "Position:",
+				name: "position"
+			}, {
+				label: "Office:",
+				name: "office"
+			}, {
+				label: "Extension:",
+				name: "extn"
+			}, {
+				label: "Start date:",
+				name: "start_date",
+				type: "date"
+			}, {
+				label: "Salary:",
+				name: "salary"
+			}
+		]
+	} );
+
+	$('#example').DataTable( {
+		dom: "Tfrtip",
+		ajax: "../php/staff.php",
+		columns: [
+			{ data: null, render: function ( data, type, row ) {
+				// Combine the first and last names into a single table field
+				return data.first_name+' '+data.last_name;
+			} },
+			{ data: "position" },
+			{ data: "office" },
+			{ data: "extn" },
+			{ data: "start_date" },
+			{ data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
+		],
+		tableTools: {
+			sRowSelect: "os",
+			aButtons: [
+				{ sExtends: "editor_create", editor: editor },
+				{ sExtends: "editor_edit",   editor: editor },
+				{ sExtends: "editor_remove", editor: editor }
+			]
+		}
+	} );
+} );
+
+
+
+	</script>
+</head>
+
+<body class="editor wide comments example">
+	<a name="top"></a>
+
+	<div class="fw-container">
+		<div class="fw-header">
+			<img src="/media/images/logo-fade.png" class="logo">
+
+			<div class="nav-master">
+				<ul>
+					<li><a href="//datatables.net">DataTables</a></li>
+					<li class="active"><a href="/">Editor</a></li>
+				</ul>
+
+				<div class="account"></div>
+			</div>
+
+			<div class="toolbar">
+				<div class="toolbar_search">
+					<form action="/search" id="cse-search-box">
+						<input type="hidden" name="cx" value="004673356914326163298:bcgejkcchl4"> <input type="hidden" name="cof" value="FORID:9"> <input type="hidden" name="ie"
+						value="UTF-8"> <input type="text" name="q" size="31"> <input type="submit" name="sa" value="Search" class="btn">
+					</form><script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+				</div>
+			</div>
+		</div>
+
+		<div class="fw-nav">
+			<div class="nav-main">
+				<ul><li class=""><a href="/examples/index">Examples</a></li><li class=" sub"><a href="/manual/index">Manual</a></li><li class=" sub"><a href="/reference/index">Reference</a></li><li class=""><a href="/generator/index">Generator</a></li><li class=" sub"><a href="/plug-ins/index">Plug-ins</a></li><li class=""><a href="//datatables.net/blog">Blog</a></li><li class=""><a href="//datatables.net/forums">Forums</a></li><li class=""><a href="/contact/index">Contact</a></li><li class=""><a href="/support/index">Support</a></li><li class=""><a href="/download/index">Download</a></li><li class=""><a href="/purchase/index">Purchase</a></li></ul>
+			</div>
+
+			<div class="mobile-show">
+				<a><i>Show site navigation</i></a>
+			</div>
+		</div>
+
+		<div class="fw-body">
+			<div class="content">
+				<h1 class="page_title">Basic initialisation</h1>
+
+				<div class="info">
+					<p><a href="//editor.datatables.net">Editor</a> is a Create, Read, Update and Delete (CRUD) extension for <a href="//datatables.net">DataTables</a> that
+					provides the ability to easily add, edit and delete rows on a database that is displayed by a DataTable. Editor provides a clean and responsive interface for
+					end user manipulation of data, an expressive API for complete control and a well defined server communications protocol for data submission.</p>
+
+					<p>This simple example shows a table with seven fields, each of which can be edited as plain text. In other examples we will explore how to add date pickers,
+					<code class="tag" title="HTML tag">select</code> elements and other controls to make form input intuitive for the system user, among many other aspects of the
+					Editor API.</p>
+				</div>
+
+				<table id="example" class="display" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Position</th>
+							<th>Office</th>
+							<th>Extn.</th>
+							<th>Start date</th>
+							<th>Salary</th>
+						</tr>
+					</thead>
+
+					<tfoot>
+						<tr>
+							<th>Name</th>
+							<th>Position</th>
+							<th>Office</th>
+							<th>Extn.</th>
+							<th>Start date</th>
+							<th>Salary</th>
+						</tr>
+					</tfoot>
+				</table>
+
+				<ul class="tabs">
+					<li class="active">Javascript</li>
+					<li>HTML</li>
+					<li>CSS</li>
+					<li>Ajax</li>
+					<li>Server-side script</li>
+					<li class="comment-count">Comments</li>
+				</ul>
+
+				<div class="tabs">
+					<div class="js">
+						<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">var editor; // use a global for the submit and return data rendering in the examples
+
+$(document).ready(function() {
+	editor = new $.fn.dataTable.Editor( {
+		ajax: &quot;../php/staff.php&quot;,
+		table: &quot;#example&quot;,
+		fields: [ {
+				label: &quot;First name:&quot;,
+				name: &quot;first_name&quot;
+			}, {
+				label: &quot;Last name:&quot;,
+				name: &quot;last_name&quot;
+			}, {
+				label: &quot;Position:&quot;,
+				name: &quot;position&quot;
+			}, {
+				label: &quot;Office:&quot;,
+				name: &quot;office&quot;
+			}, {
+				label: &quot;Extension:&quot;,
+				name: &quot;extn&quot;
+			}, {
+				label: &quot;Start date:&quot;,
+				name: &quot;start_date&quot;,
+				type: &quot;date&quot;
+			}, {
+				label: &quot;Salary:&quot;,
+				name: &quot;salary&quot;
+			}
+		]
+	} );
+
+	$('#example').DataTable( {
+		dom: &quot;Tfrtip&quot;,
+		ajax: &quot;../php/staff.php&quot;,
+		columns: [
+			{ data: null, render: function ( data, type, row ) {
+				// Combine the first and last names into a single table field
+				return data.first_name+' '+data.last_name;
+			} },
+			{ data: &quot;position&quot; },
+			{ data: &quot;office&quot; },
+			{ data: &quot;extn&quot; },
+			{ data: &quot;start_date&quot; },
+			{ data: &quot;salary&quot;, render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
+		],
+		tableTools: {
+			sRowSelect: &quot;os&quot;,
+			aButtons: [
+				{ sExtends: &quot;editor_create&quot;, editor: editor },
+				{ sExtends: &quot;editor_edit&quot;,   editor: editor },
+				{ sExtends: &quot;editor_remove&quot;, editor: editor }
+			]
+		}
+	} );
+} );</code>
+
+						<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+
+						<ul>
+							<li><a href="//code.jquery.com/jquery-1.11.1.min.js">//code.jquery.com/jquery-1.11.1.min.js</a></li>
+							<li><a href="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js">//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js</a></li>
+							<li><a href=
+							"//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js">//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js</a></li>
+							<li><a href="../../media/js/dataTables.editor.min.js">../../media/js/dataTables.editor.min.js</a></li>
+						</ul>
+					</div>
+
+					<div class="table">
+						<p>The HTML shown below is the raw HTML table element, before it has been enhanced by DataTables:</p>
+					</div>
+
+					<div class="css">
+						<div>
+							<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css"></code>
+						</div>
+
+						<p>The following CSS library files are loaded for use in this example to provide the styling of the table:</p>
+
+						<ul>
+							<li><a href="//cdn.datatables.net/1.10.6/css/jquery.dataTables.css">//cdn.datatables.net/1.10.6/css/jquery.dataTables.css</a></li>
+							<li><a href=
+							"//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css</a></li>
+							<li><a href="../../media/css/dataTables.editor.min.css">../../media/css/dataTables.editor.min.css</a></li>
+						</ul>
+					</div>
+
+					<div class="ajax">
+						<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
+						loaded.</p>
+					</div>
+
+					<div class="php">
+						<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP.
+						Server-side processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
+						documentation</a>.</p>
+					</div>
+
+					<div class="comments">
+						<div class="comments-insert"></div>
+					</div>
+				</div>
+
+				
+				
+			</div>
+		</div>
+
+		<div class="fw-footer">
+			<div class="copyright">
+				DataTables and Editor designed and created by <a href="//sprymedia.co.uk">SpryMedia Ltd</a> &#169; 2012-2015<br>
+				SpryMedia Ltd is registered in Scotland, company no. SC456502.
+			</div>
+		</div>
+	</div><script type="text/javascript">
+			  var _gaq = _gaq || [];
+				  _gaq.push(['_setAccount', 'UA-365466-5']);
+				  _gaq.push(['_trackPageview']);
+
+				  (function() {
+					var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+					ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+				  })();
+	</script>
+</body>
+</html>

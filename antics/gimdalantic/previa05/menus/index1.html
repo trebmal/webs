@@ -1,0 +1,40 @@
+<!-- CONTENIDO QUE NO CAMBIA -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <title>Título</title>
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+        var url = 'http://localhost/lambert/webs/gimdal/previa/gestio/altausuaris/';
+
+	$('#menu a').click(function(e) { // Al hace click sobre un enlace dentro del menú
+		e.preventDefault(); // Previene la acción por defecto, que sería enviarte a otra página
+		//var href = url + 'http://localhost/lambert/webs/gimdal/prova/'  + $(this).attr('href'); // Esta línea extrae el contenido del atributo href del enlace clickeado
+  var href = url + $(this).attr('href'); // Esta línea extrae el contenido del atributo href del enlace clickeado. Aqui no se que hay que poner.
+                // La línea anterior quedaría así si se clickea en inicio:
+                // href = http://misitio.algo/contenido.html #inicio
+                // Lo que cargará el contenido del div inicio dentro del contenido.
+                console.log(href);
+		$('#main-content').empty(); // Limpia el div 'contenido'
+		$('#main-content').load(href); // Esta línea simplemente carga el contenido dentro del div 'contenido'
+	});
+      });    
+    </script>
+  </head>
+  <body>
+    <div id="header"></div>
+    <div id="menu">
+      <ul>
+        <li><a href='#inicio'>Inicio</a></li>
+        <li><a href='index.php'>Google</a></li>
+        <li><a href='#pagina2'>Pagina2</a></li>
+      </ul>
+    </div>
+    <div id="main-content">
+      <!-- AQUÍ SE CARGARÍA EL CONTENIDO -->
+    </div>
+    <div id="footer"></div>
+  </body>
+</html>
